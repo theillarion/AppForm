@@ -1,0 +1,52 @@
+﻿<Page x:Class="Xk7.Views.EditUser"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Xk7.Views" xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+      mc:Ignorable="d" 
+      d:DesignHeight="702" d:DesignWidth="1248"
+      Title="EditUser">
+
+    <Grid>
+
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="White" Offset="1"/>
+                <GradientStop Color="White" Offset="0"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <TextBlock x:Name="EditTextBlock" Foreground="Black" FontWeight="Bold" FontSize="40" FontFamily="Arial" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Edit User" Margin="0,200,0,430"></TextBlock>
+        <Grid Margin="20 300 20 40" HorizontalAlignment="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Row="0" Grid.Column="0" x:Name="UserRole" Text="User Role: " HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="18" FontWeight="DemiBold" FontFamily="Arial"></TextBlock>
+            <TextBlock Grid.Row="1" Grid.Column="0" x:Name="Login" Text="Login: " HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="18" FontWeight="DemiBold" FontFamily="Arial"></TextBlock>
+            <TextBlock Grid.Row="2" Grid.Column="0" x:Name="FirstName" Text="First Name: " HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="18" FontWeight="DemiBold" FontFamily="Arial"></TextBlock>
+            <TextBlock Grid.Row="3" Grid.Column="0" x:Name="SecondName" Text="Second Name: " HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="18" FontWeight="DemiBold" FontFamily="Arial"></TextBlock>
+            <TextBlock Grid.Row="4" Grid.Column="0" x:Name="DateBirth" Text="Date Birth: " HorizontalAlignment="Left" VerticalAlignment="Center"  FontSize="18" FontWeight="DemiBold" FontFamily="Arial"></TextBlock>
+            <TextBox Grid.Row="0" Grid.Column="1" x:Name="UserRoleTextBox" VerticalAlignment="Center" Height="30" Width="300" FontFamily="Arial" FontSize="18"></TextBox>
+            <TextBox Grid.Row="1" Grid.Column="1" x:Name="LoginTextBox" VerticalAlignment="Center" Height="30" Width="300" FontFamily="Arial" FontSize="18"></TextBox>
+            <TextBox Grid.Row="2" Grid.Column="1" x:Name="FirstNameTextBox" VerticalAlignment="Center" Height="30" Width="300" FontFamily="Arial" FontSize="18"></TextBox>
+            <TextBox Grid.Row="3" Grid.Column="1" x:Name="SecondNameTextBox" VerticalAlignment="Center" Height="30" Width="300" FontFamily="Arial" FontSize="18"></TextBox>
+            <TextBox Grid.Row="4" Grid.Column="1" x:Name="DateBirthTextBox" VerticalAlignment="Center" Height="30" Width="300" FontFamily="Arial" FontSize="18"></TextBox>
+            <Button Grid.Row="5" Grid.Column="0"  x:Name="CancelButton" Style="{StaticResource addButton}" Content="Cancel" FontWeight="Light"  FontSize="20" Margin="0 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Left" Height="54" Width="110" Click="CancelButton_Click" FontFamily="Arial" Background="SkyBlue" Foreground="Black"/>
+            <Button Grid.Row="5" Grid.Column="1"  x:Name="ConfirmButton" Style="{StaticResource addButton}" Content="Confirm" FontWeight="Light"  FontSize="20" Margin="0 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Left" Height="54" Width="110" Click="ConfirmButton_Click" FontFamily="Arial" Background="SkyBlue" Foreground="Black"/>
+        </Grid>
+        <Icon:PackIconMaterial Kind="AccessPoint" Foreground="SkyBlue" Height="88" Width="104" HorizontalAlignment="Center" Margin="0,70,0,0"/>
+
+
+
+
+    </Grid>
+</Page>
