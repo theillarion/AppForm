@@ -4,7 +4,6 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Xk7.pages"
-      xmlns:viewModel="clr-namespace:Xk7.ViewModels"
       xmlns:Xk7="clr-namespace:Xk7"
       xmlns:p="clr-namespace:Xk7.Resources" xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
       mc:Ignorable="d" 
