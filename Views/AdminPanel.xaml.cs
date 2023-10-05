@@ -24,8 +24,6 @@ using Xk7.Helper.Exceptions;
 using Xk7.Model;
 using Xk7.pages;
 using Xk7.Services;
-using Xk7.Views;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Xk7.Views
 {
