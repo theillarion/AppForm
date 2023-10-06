@@ -9,8 +9,6 @@ namespace Xk7.Helper.Enums
     public enum UserRole
     {
         User = 1,
-        Psychologist,
-        CopyWriter,
         Admin,
         SuperAdmin
     }
