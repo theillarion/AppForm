@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+
+using Xk7.Helper.Enums;
 using Xk7.Model;
 using Xk7.Services;
 
@@ -46,8 +48,24 @@ namespace Xk7.Views
             EditedUser.SecondName = SecondNameTextBox.Text;
             EditedUser.DateBirthday = DateTime.Parse(DateBirthTextBox.Text);
 
-            await _dbAsyncService.UpdateUserTableAsync(_user.Login, EditedUser);
-            App.MainFrame.Navigate(await AdminPanel.CreateAsync());
+
+            if (!EditedUser.AllFieldsFilled())
+            {
+                MessageBox.Show(UICultureService.GetProperty("ErrorSomeFieldsBlank"), "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+            try
+            {
+                var result = await _dbAsyncService.UpdateUserByLoginAsync(_user.Login, EditedUser);
+                if (result == UpdateUserResult.Success)
+                    App.MainFrame.Navigate(await AdminPanel.CreateAsync());
+                else
+                    MessageBox.Show(EnumStrings.UpdateUserResult[(uint)result], "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private async void CancelButton_Click(object sender, RoutedEventArgs e)
