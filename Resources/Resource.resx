@@ -132,8 +132,14 @@
   <data name="ButtonReturn" xml:space="preserve">
     <value>Return</value>
   </data>
+  <data name="ErrorIncorrectFileConfiguration" xml:space="preserve">
+    <value>Invalid configuration file</value>
+  </data>
   <data name="ErrorNotFoundConfig" xml:space="preserve">
     <value>Configuration file not found.</value>
+  </data>
+  <data name="ErrorSomeFieldsBlank" xml:space="preserve">
+    <value>Not all required fields have been filled in. Please try again.</value>
   </data>
   <data name="ErrorUserBlocked" xml:space="preserve">
     <value>The user is blocked.</value>
@@ -164,6 +170,9 @@
   </data>
   <data name="RegistrationIncorrectData" xml:space="preserve">
     <value>Some fields not entered. Fill them in and try again.</value>
+  </data>
+  <data name="Success" xml:space="preserve">
+    <value>The operation was successful.</value>
   </data>
   <data name="SuccessAuthentication" xml:space="preserve">
     <value>The user has successfully logged on.</value>

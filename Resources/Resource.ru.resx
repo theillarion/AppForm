@@ -132,8 +132,14 @@
   <data name="ButtonReturn" xml:space="preserve">
     <value>Вернуться</value>
   </data>
+  <data name="ErrorIncorrectFileConfiguration" xml:space="preserve">
+    <value>Некорректный файл конфигурации</value>
+  </data>
   <data name="ErrorNotFoundConfig" xml:space="preserve">
     <value>Не найден файл конфигурации.</value>
+  </data>
+  <data name="ErrorSomeFieldsBlank" xml:space="preserve">
+    <value>Не все обязательные поля заполнены. Повторите попытку.</value>
   </data>
   <data name="ErrorUserBlocked" xml:space="preserve">
     <value>Пользователь заблокирован.</value>
@@ -164,6 +170,9 @@
   </data>
   <data name="RegistrationIncorrectData" xml:space="preserve">
     <value>Некоторые поля не введены. Заполните их и повторите попытку.</value>
+  </data>
+  <data name="Success" xml:space="preserve">
+    <value>Операция выполнена успешно.</value>
   </data>
   <data name="SuccessAuthentication" xml:space="preserve">
     <value>Пользователь успешно выполнил вход.</value>

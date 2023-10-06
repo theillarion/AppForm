@@ -106,11 +106,29 @@ namespace Xk7.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Invalid configuration file.
+        /// </summary>
+        public static string ErrorIncorrectFileConfiguration {
+            get {
+                return ResourceManager.GetString("ErrorIncorrectFileConfiguration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Configuration file not found..
         /// </summary>
         public static string ErrorNotFoundConfig {
             get {
                 return ResourceManager.GetString("ErrorNotFoundConfig", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Not all required fields have been filled in. Please try again..
+        /// </summary>
+        public static string ErrorSomeFieldsBlank {
+            get {
+                return ResourceManager.GetString("ErrorSomeFieldsBlank", resourceCulture);
             }
         }
         
@@ -201,6 +219,15 @@ namespace Xk7.Resources {
         public static string RegistrationIncorrectData {
             get {
                 return ResourceManager.GetString("RegistrationIncorrectData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на The operation was successful..
+        /// </summary>
+        public static string Success {
+            get {
+                return ResourceManager.GetString("Success", resourceCulture);
             }
         }
         
