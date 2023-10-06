@@ -15,21 +15,14 @@ namespace Xk7.Services
         Task<bool> IsBannedUserAsync(string login);
         Task<string> GetHashPasswordAsync(string login);
         Task<AddUserResult> AddUserAsync(User user);
+        Task<UpdateUserResult> UpdateUserByLoginAsync(string oldLogin, DbUser newUser);
         Task<DataRow?> GetDataUserByLoginAsync(string login);
-        Task<CommonAddResult> AddLog(string login, LoggingType loggingType);
-        Task<DataTable?> GetTable(string nameTable);
+        Task<CommonAddResult> AddLogAsync(string login, LoggingType loggingType);
+        Task<DataTable?> GetTableAsync(string nameTable);
         Task<UserRole> GetUserRoleAsync(string login);
-        Task<bool> IsBusySlotAsync(uint idSlot);
-        Task<AddSlotResult> AddSlotAsync(string employeeLogin, DateOnly slotDate, TimeOnly slotTime);
-        Task<BlockSlotResult> BlockSlotAsync(uint idSlot, string userLogin);
-        Task<CommonAddResult> UpdateUserTableAsync(string OldLogin, DbUser NewUser);
-        Task<DataTable?> GetSlotsTableByLogin(string login);
-        Task<DataRowCollection?> GetSlotsRowsByLogin(string login);
-        Task<bool> DeleteSlot(uint id);
-        Task<DataRowCollection?> GetFreeSlotsRows();
-        Task<DataRowCollection?> setBusyGetId(string? userLogin, string dateOnly, string timeOnly);
-        Task InsertUserTimeTable(uint id, string? login);
-        Task<DataRowCollection?> GetAllNotifications(string login, DateTime dateTimeBefore);
-        Task<DataRowCollection?> GetNewNotifications(string login);
+        Task<bool> ExistsTestAsync(uint idTest);
+        Task<AddImageResult> AddImageForTestAsync(IFileService fileService, uint idTest, string filepath);
+        Task<AddTestResult> AddTestWithoutImageAsync(DbTest test);
+        Task<AddTestImageResult> AddTestWithImageAsync(IFileService fileService, DbTest test, string filepath);
     }
 }
