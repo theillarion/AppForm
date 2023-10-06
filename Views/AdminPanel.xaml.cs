@@ -1,4 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
+
+using MySqlX.XDevAPI.Common;
 using MySqlX.XDevAPI.Relational;
 
 using System;
@@ -20,6 +22,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 using Xk7.Helper;
+using Xk7.Helper.Enums;
 using Xk7.Helper.Exceptions;
 using Xk7.Model;
 using Xk7.pages;
@@ -35,39 +38,50 @@ namespace Xk7.Views
     public partial class AdminPanel : Page
     {
         private readonly IDbAsyncService _dbService;
+        private readonly IFileService _fileService;
         private const string TitlePage = "AdminPanel";
         public AdminPanel()
         {
             InitializeComponent();
             var dbService = App.ConfigureDefaultDbService(App.FatalError);
-            if (dbService == null)
+            var fileService = App.ConfigureDefaultFileService(App.FatalError);
+            if (dbService == null || fileService == null)
                 App.FatalError(null);
             else
+            {
                 _dbService = dbService;
+                _fileService = fileService;
+            }
         }
         public static async Task<AdminPanel> CreateAsync()
         {
-            var Result = new AdminPanel();
-            var Table = await Result._dbService.GetTable("User");
-            var test = new ObservableCollection<DbUser>();
-            foreach (DataRow row in Table.Rows)
-            {
-                //Factory.FromDataRow<DbUser>
-                var obj = new DbUser()
-                {
-                    IdUserRole   = (uint) row.ItemArray[0],
-                    Login        = (string) row.ItemArray[1],
-                    HashPassword = (byte[]) row.ItemArray[2],
-                    FirstName    = (string) row.ItemArray[3],
-                    SecondName   = (string) row.ItemArray[4],
-                    DateBirthday = (DateTime) row.ItemArray[5],
-                    IsBlocked    = (bool) row.ItemArray[6]
-                };
-                test.Add(obj);
-            }
-            Result.dbTable.ItemsSource = test;
+            var adminPanel = new AdminPanel();
 
-            return Result;
+            //TODO: DELETE!!! (FOR DEBUG)
+            try
+            {
+                var result = await adminPanel._dbService.AddTestWithImageAsync(adminPanel._fileService, new DbTest(1, "Test", "Bla bla bla", DateTime.UtcNow, "admin", true), "test_picture.jpg");
+                MessageBox.Show(Enum.GetName(typeof(AddTestImageResult), result), "Result", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Exception", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            //END BLOCK
+
+            var tableUser = await adminPanel._dbService.GetTableAsync("User");
+            var collectionUsers = new ObservableCollection<DbUser>();
+
+            if (tableUser != null)
+                foreach (DataRow row in tableUser.Rows)
+                {
+                    var rowUser = Factory.FromDataRow<DbUser>(row);
+                    if (rowUser != null)
+                        collectionUsers.Add(rowUser);
+                }
+            adminPanel.dbTable.ItemsSource = collectionUsers;
+
+            return adminPanel;
         }
 
         private void ChangeLanguageClick(object sender, RoutedEventArgs e)
@@ -86,9 +100,8 @@ namespace Xk7.Views
 
         private void ExitClick(object sender, RoutedEventArgs e)
         {
-            App.MainFrame.Navigate(new Auth(_dbService));
+            App.MainFrame.Navigate(new Auth(_dbService, _fileService));
         }
-
 
         private void AdminPanelEditButton(object sender, RoutedEventArgs e)
         {
