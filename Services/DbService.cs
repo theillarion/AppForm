@@ -5,6 +5,7 @@ using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 using Xk7.Helper;
 using Xk7.Helper.Enums;
 using Xk7.Helper.Exceptions;
@@ -13,6 +14,7 @@ using Xk7.Model;
 
 namespace Xk7.Services
 {
+    [Obsolete("Soon all methods of this class will be moved to the `DbAsyncService` class. This class will be deleted.")]
     public class DbService : IDbService
     {
         private readonly DbConnection _connection;
@@ -137,7 +139,7 @@ namespace Xk7.Services
                 throw new ExecuteException(ex.Message);
             }
         }
-        public CommonAddResult AddLog(string login, LoggingType loggingType)
+        public CommonAddResult AddLogAsync(string login, LoggingType loggingType)
         {
             if (_connection is not { State: ConnectionState.Open })
                 throw new ConnectionException("Connection refused");
@@ -186,6 +188,7 @@ namespace Xk7.Services
         {
             if (_connection is not { State: ConnectionState.Open })
                 throw new ConnectionException("Connection refused");
+
 
             if (!ExistsUser(OldLogin))
                 return CommonAddResult.NotExistsUser;
