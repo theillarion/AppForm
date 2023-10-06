@@ -18,9 +18,11 @@ namespace Xk7
 {
     public partial class App : Application
     {
-        internal readonly IDbAsyncService _dbAsyncService;
+        internal static IDbAsyncService _dbAsyncService;
+        internal static IFileService _fileAsyncService;
+        internal static bool _hasInstanceDbservice = false;
+        internal static bool _hasInstanceFileservice = false;
         internal static readonly NavigationWindow MainFrame = new();
-        internal static readonly DbAsyncService? dbService;
         internal static string language = "en";
         internal delegate void Error(string? message);
         internal App()
@@ -32,8 +34,12 @@ namespace Xk7
             //
             UICultureService.SetCulture(new CultureInfo(language));
             var dbService = ConfigureDefaultDbService(FatalError);
-            if (dbService != null)
-                MainFrame.Navigate(new Auth(dbService));
+            var fileService = ConfigureDefaultFileService(FatalError);
+
+            if (dbService != null && fileService != null)
+            {
+                MainFrame.Navigate(new Auth(dbService, fileService));
+            }
             else
                 FatalError(null);
             MainFrame.Show();
@@ -43,21 +49,47 @@ namespace Xk7
             MessageBox.Show(message ?? "Unknown error.", "Fatal error", MessageBoxButton.OK, MessageBoxImage.Error);
             Environment.Exit(-1);
         }
-        internal static DbAsyncService? ConfigureDefaultDbService(Error error)
+        internal static IDbAsyncService ConfigureDefaultDbService(Error error)
         {
-            if (!DbSettingsService.DbSettingsFileExists())
-                error.Invoke(UICultureService.GetProperty("ErrorNotFoundConfig"));
+            if (!_hasInstanceDbservice)
+            {
+                if (!DbSettingsService.DbSettingsFileExists())
+                    error.Invoke(UICultureService.GetProperty("ErrorNotFoundConfig"));
 
-            var settings = DbSettingsService.LoadDbSettings();
-            try
-            {
-                return new DbAsyncService(new MySqlConnection(settings.ConnectionString));
+                var settings = DbSettingsService.LoadDbSettings();
+                try
+                {
+                    _dbAsyncService = new DbAsyncService(new MySqlConnection(settings.ConnectionString));
+                    _hasInstanceDbservice = true;
+                }
+                catch (ConnectionException)
+                {
+                    error.Invoke(UICultureService.GetProperty("ExceptionConnectionRefused"));
+                }
             }
-            catch (ConnectionException)
+            return _dbAsyncService;
+        }
+        internal static IFileService ConfigureDefaultFileService(Error error)
+        {
+            if (!_hasInstanceFileservice)
             {
-                error.Invoke(UICultureService.GetProperty("ExceptionConnectionRefused"));
+                if (!SftpSettingsService.FileExists())
+                    error.Invoke(UICultureService.GetProperty("ErrorNotFoundConfig"));
+
+                var settings = SftpSettingsService.LoadSettings();
+                if (settings == null)
+                    error.Invoke(UICultureService.GetProperty("ErrorIncorrectFileConfiguration"));
+                try
+                {
+                    _fileAsyncService = new SftpService(settings);
+                    _hasInstanceFileservice = true;
+                }
+                catch (ConnectionException)
+                {
+                    error.Invoke(UICultureService.GetProperty("ExceptionConnectionRefused"));
+                }
             }
-            return null;
+            return _fileAsyncService;
         }
     }
 }
