@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using Xk7.Helper.Enums;
 
 namespace Xk7.Helper.Converts
 {
@@ -17,6 +15,18 @@ namespace Xk7.Helper.Converts
             var hashBytes = md5.ComputeHash(inputBytes);
 
             return Convert.ToHexString(hashBytes);
+        }
+        internal static AddImageResult ConvertEnum(LoadFileResult fileResult)
+        {
+            if ((uint)fileResult > (uint)LoadFileResult.Success)
+                return (AddImageResult)(fileResult + 1);
+            return AddImageResult.Success;
+        }
+        internal static AddImageResult ConvertEnum(AddTestResult fileResult)
+        {
+            if ((uint)fileResult < (uint)AddTestResult.Unknown)
+                return (AddImageResult)fileResult;
+            return AddImageResult.Unknown;
         }
     }
 }
