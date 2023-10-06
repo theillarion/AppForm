@@ -25,12 +25,14 @@ namespace Xk7.Views
     public partial class UserProfile : Page
     {
         private readonly IDbAsyncService _dbAsyncService;
+        private readonly IFileService _fileService;
         private DbUser _user;
         private const string TitlePage = "EditUser";
-        internal UserProfile(IDbAsyncService dbAsyncService, DbUser user)
+        internal UserProfile(IDbAsyncService dbAsyncService, IFileService fileService, DbUser user)
         {
             InitializeComponent();
             _dbAsyncService = dbAsyncService;
+            _fileService = fileService;
             _user = user;
             LoginTextBlock.Text = user.Login;
             FirstNameTextBlock.Text = user.FirstName;
@@ -54,7 +56,7 @@ namespace Xk7.Views
 
         private void ExitClick(object sender, RoutedEventArgs e)
         {
-            App.MainFrame.Navigate(new Auth(_dbAsyncService));
+            App.MainFrame.Navigate(new Auth(_dbAsyncService, _fileService));
         }
 
         private void ProfileButton_Click(object sender, RoutedEventArgs e)

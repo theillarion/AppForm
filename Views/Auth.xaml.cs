@@ -28,12 +28,14 @@ namespace Xk7.pages
     public partial class Auth : Page
     {
         private readonly IDbAsyncService _dbAsyncService;
+        private readonly IFileService _fileService;
         private const string TitlePage = "Authentication";
-        internal Auth(IDbAsyncService dbAsyncService)
+        internal Auth(IDbAsyncService dbAsyncService, IFileService fileService)
         {
             InitializeComponent();
             _dbAsyncService = dbAsyncService;
             AuthExceptionTextBox.Visibility = Visibility.Hidden;
+            _fileService = fileService; 
         }
         private void SetError(string? message)
         {
@@ -85,24 +87,24 @@ namespace Xk7.pages
                     else if (user.IsBlocked)
                     {
                         SetError(UICultureService.GetProperty("ErrorUserBlocked"));
-                        await _dbAsyncService.AddLog(login, LoggingType.FailedAuthenticationUserBanned);
+                        await _dbAsyncService.AddLogAsync(login, LoggingType.FailedAuthenticationUserBanned);
                     }
                         
                     else if (Converts.ConvertByteArrayToString(user.HashPassword)
                              != Converts.ConvertStringToHeshString(password))
                     {
                         SetError(UICultureService.GetProperty("ErrorWrongPassword"));
-                        await _dbAsyncService.AddLog(login, LoggingType.FailedAuthenticationWrongPassword);
+                        await _dbAsyncService.AddLogAsync(login, LoggingType.FailedAuthenticationWrongPassword);
                     }
                     else
                     {
                         if (user.IdUserRole == (uint)UserRole.SuperAdmin)
                             App.MainFrame.Navigate(await AdminPanel.CreateAsync());
                         else if (user.IdUserRole < (uint)UserRole.SuperAdmin)
-                            App.MainFrame.Navigate(new UserProfile(_dbAsyncService, (DbUser)user));
+                            App.MainFrame.Navigate(new UserProfile(_dbAsyncService, _fileService, (DbUser)user));
                         else
                             MessageBox.Show("User has been successfully authorized", "Authentication", MessageBoxButton.OK, MessageBoxImage.Information);
-                        await _dbAsyncService.AddLog(login, LoggingType.SuccessAuthentication);
+                        await _dbAsyncService.AddLogAsync(login, LoggingType.SuccessAuthentication);
                     }
                 }
             }
@@ -121,7 +123,7 @@ namespace Xk7.pages
         }
         private void regButton_Click(object sender, RoutedEventArgs e)
         {
-            App.MainFrame.Navigate(new Registration(_dbAsyncService));
+            App.MainFrame.Navigate(new Registration(_dbAsyncService, _fileService));
         }
         private void employeeLoginButton_Click(object sender, RoutedEventArgs e)
         {

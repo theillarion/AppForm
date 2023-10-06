@@ -25,11 +25,13 @@ namespace Xk7.pages
     public partial class Registration : Page
     {
         private readonly IDbAsyncService _dbAsyncService;
-        internal Registration(IDbAsyncService dbAsyncService)
+        private readonly IFileService _fileService;
+        internal Registration(IDbAsyncService dbAsyncService, IFileService fileService)
         {
             InitializeComponent();
             _dbAsyncService = dbAsyncService;
             RegistrationExceptionTextBox.Visibility = Visibility.Hidden;
+            _fileService = fileService; 
         }
         private void LoginTextBox_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -103,8 +105,8 @@ namespace Xk7.pages
                 switch (result)
                 {
                     case AddUserResult.Success:
-                        App.MainFrame.Navigate(new UserProfile(_dbAsyncService, new DbUser(user)));
-                        await _dbAsyncService.AddLog(login, LoggingType.SuccessRegistration);
+                        App.MainFrame.Navigate(new UserProfile(_dbAsyncService, _fileService, new DbUser(user)));
+                        await _dbAsyncService.AddLogAsync(login, LoggingType.SuccessRegistration);
                         break;
                     case AddUserResult.UserExists:
                         SetError(UICultureService.GetProperty("ErrorUserExists"));
@@ -129,7 +131,7 @@ namespace Xk7.pages
         }
         private void regBackClick(object sender, RoutedEventArgs e)
         {
-            App.MainFrame.Navigate(new Auth(_dbAsyncService));
+            App.MainFrame.Navigate(new Auth(_dbAsyncService, _fileService));
         }
         // TODO: Fix
         private void RemoveEmptyFields(string CurrentField)
