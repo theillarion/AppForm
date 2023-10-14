@@ -13,4 +13,12 @@ namespace Xk7.Helper.Enums
         DestinationFileExists,
         Unknown
     }
+    internal enum LoadImageResult
+    {
+        Success,
+        IdNotExists,
+        SourceImageNotExists,
+        DestinationImageExists,
+        Unknown
+    }
 }
