@@ -2,8 +2,9 @@
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:Xk7.pages"
+      xmlns:vm="clr-namespace:Xk7.ViewModel" d:DataContext="{d:DesignInstance Type=vm:RegistrationViewModel}"
       xmlns:Xk7="clr-namespace:Xk7"
       xmlns:p="clr-namespace:Xk7.Resources"
       mc:Ignorable="d" 
@@ -132,20 +133,57 @@
         </Grid.Background>
         <Label Content="{x:Static p:Resource.LabelNameProject}" HorizontalAlignment="Center" Margin="0,160,0,0" VerticalAlignment="Top" Height="68" Width="646" Foreground="Black" FontFamily="Arial" FontSize="48" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
         <Label Content="{x:Static p:Resource.LabelRegistration}" HorizontalAlignment="Center" VerticalAlignment="Top" Height="36" Width="312" Foreground="Black" FontFamily="Lucida Console" FontSize="22" HorizontalContentAlignment="Center" Margin="0,266,0,0" FontWeight="Bold"/>
-        <TextBox x:Name="NameTextBox" Template="{DynamicResource RoundedTextBox}" HorizontalAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Top" Width="312" Height="28" FontWeight="Bold" FontFamily="Lucida Bright" TextWrapping="WrapWithOverflow" BorderThickness="1,1,1,1" ClipToBounds="True" PreviewMouseLeftButtonDown="NameTextBox_PreviewMouseLeftButtonDown" FontSize="14" SelectionTextBrush="White" Foreground="#FF8F8383" TextAlignment="Center" Margin="0,329,0,0"/>
-        <TextBox x:Name="PassTextBox" Template="{DynamicResource RoundedTextBox}" HorizontalAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Top" Width="312" Height="28" FontWeight="Bold" FontFamily="Lucida Bright" TextWrapping="WrapWithOverflow" BorderThickness="1,1,1,1" ClipToBounds="True" PreviewMouseLeftButtonDown="PassTextBox_PreviewMouseLeftButtonDown" FontSize="14" SelectionTextBrush="White" Foreground="#FF8F8383" TextAlignment="Center" Margin="0,507,0,0"/>
-        <TextBox x:Name="LoginTextBox" Template="{DynamicResource RoundedTextBox}" HorizontalAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Top" Width="312" Height="28" FontWeight="Bold" FontFamily="Lucida Bright" TextWrapping="WrapWithOverflow" BorderThickness="1,1,1,1" ClipToBounds="True" PreviewMouseLeftButtonDown="LoginTextBox_PreviewMouseLeftButtonDown" FontSize="14" SelectionTextBrush="White" Foreground="#FF8F8383" TextAlignment="Center" Margin="0,445,0,0"/>
-        <TextBox x:Name="SecondNameTextBox" Template="{DynamicResource RoundedTextBox}" HorizontalAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Top" Width="312" Height="28" FontWeight="Bold" FontFamily="Lucida Bright" TextWrapping="WrapWithOverflow" BorderThickness="1,1,1,1" ClipToBounds="True" PreviewMouseLeftButtonDown="SecondNameTextBox_PreviewMouseLeftButtonDown" FontSize="14" SelectionTextBrush="White" Foreground="#FF8F8383" TextAlignment="Center" Margin="0,386,0,0"/>
-        <DatePicker  x:Name="datePicker" CalendarStyle="{DynamicResource cendteredDatePickerCalendar}" BorderBrush="Transparent" FontFamily="Lucide Bright" FontSize="14" FirstDayOfWeek="Monday" FontWeight="Bold" Foreground="#FF8F8383" Background="Transparent" RenderTransformOrigin="0.5,0.552" SelectedDateChanged="datePicker_SelectedDateChanged" Margin="573,535,0,133" HorizontalAlignment="Left" />
+        <TextBox Text="{Binding User.FirstName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                 LostFocus="FirstNameTextBox_LostFocus"
+                 BorderBrush="{Binding BorderFirstName}" ToolTipService.ToolTip="{Binding ErrorFirstName}" ToolTipService.IsEnabled="{Binding ToolTipFirstNameEnabled}"
+                 HorizontalAlignment="Center" VerticalContentAlignment="Center"
+                 VerticalAlignment="Top" Width="312" Height="30" FontFamily="Lucida Bright" TextWrapping="WrapWithOverflow"
+                 BorderThickness="1,1,1,1" ClipToBounds="True" FontSize="14" SelectionTextBrush="White"
+                 Foreground="#FF8F8383" TextAlignment="Center" Margin="0,329,0,0">
+        </TextBox>
+        <TextBox Text="{Binding User.SecondName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                 LostFocus="SecondNameTextBox_LostFocus" BorderBrush="{Binding BorderSecondName}"
+                 ToolTipService.ToolTip="{Binding ErrorSecondName}" ToolTipService.IsEnabled="{Binding ToolTipSecondNameEnabled}"
+                 HorizontalAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Top" Width="312"
+                 Height="28" FontWeight="Bold" FontFamily="Lucida Bright" TextWrapping="WrapWithOverflow"
+                 BorderThickness="1,1,1,1" ClipToBounds="True" FontSize="14" SelectionTextBrush="White"
+                 Foreground="#FF8F8383" TextAlignment="Center" Margin="0,386,0,0">
+        </TextBox>
+        <TextBox Text="{Binding User.Login, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                 LostFocus="LoginTextBox_LostFocus" BorderBrush="{Binding BorderLogin}"
+                 ToolTipService.ToolTip="{Binding ErrorLogin}" ToolTipService.IsEnabled="{Binding ToolTipLoginEnabled}"
+                 HorizontalAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Top" Width="312"
+                 Height="28" FontWeight="Bold" FontFamily="Lucida Bright" TextWrapping="WrapWithOverflow"
+                 BorderThickness="1,1,1,1" ClipToBounds="True" FontSize="14" SelectionTextBrush="White"
+                 Foreground="#FF8F8383" TextAlignment="Center" Margin="0,445,0,0">
+        </TextBox>
+        <TextBox Text="{Binding User.Password, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                 LostFocus="PasswordTextBox_LostFocus" BorderBrush="{Binding BorderPassword}"
+                 ToolTipService.ToolTip="{Binding ErrorPassword}" ToolTipService.IsEnabled="{Binding ToolTipPasswordEnabled}"
+                 HorizontalAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Top" Width="312"
+                 Height="28" FontWeight="Bold" FontFamily="Lucida Bright" TextWrapping="WrapWithOverflow"
+                 BorderThickness="1,1,1,1" ClipToBounds="True" FontSize="14" SelectionTextBrush="White"
+                 Foreground="#FF8F8383" TextAlignment="Center" Margin="0,507,0,0">
+        </TextBox>
+        <DatePicker Text="{Binding User.DateBirthdayString, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                 LostFocus="DateBirthdayTextBox_LostFocus" BorderBrush="{Binding BorderDateBirthday}"
+                 ToolTipService.ToolTip="{Binding ErrorDateBirthday}" ToolTipService.IsEnabled="{Binding ToolTipDateBirthdayEnabled}"
+                 CalendarStyle="{DynamicResource cendteredDatePickerCalendar}" FontSize="14" FirstDayOfWeek="Monday"
+                 FontWeight="Bold" Foreground="#FF8F8383" Background="Transparent" RenderTransformOrigin="0.5,0.552"
+                 Margin="573,535,0,143" HorizontalAlignment="Left">
+        </DatePicker>
         <StackPanel Orientation="Horizontal" Margin="0,573,0,0" VerticalAlignment="Top" HorizontalAlignment="Center">
 
             <Button x:Name="loginButton" Content="{x:Static p:Resource.ButtonReturn}" Style="{DynamicResource ButtonRounded}" Margin="0,0,5,0" VerticalAlignment="Center" Height="54" Width="150" Click="regBackClick" FontFamily="Lucida Console" Background="SkyBlue" Foreground="Black"/>
             <Button x:Name="regButton" Content="{x:Static p:Resource.ButtonRegister}" Style="{DynamicResource ButtonRounded}" Margin="5,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" Height="54" Width="150" Click="regRegistrationClick" FontFamily="Lucida Console" Background="SkyBlue" Foreground="Black"/>
 
         </StackPanel>
-        <TextBox x:Name="RegistrationExceptionTextBox" IsReadOnly="False" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="32" Margin="0,228,0,0" TextWrapping="Wrap" Text="Exception" VerticalAlignment="Top" Width="404" FontFamily="Lucida Console" FontWeight="Bold" Foreground="#FFB5B5B5" Template="{DynamicResource RoundedTextBox}">
+        <TextBox x:Name="RegistrationExceptionTextBox" IsReadOnly="True" HorizontalAlignment="Center"
+                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="32"
+                 Margin="0,228,0,0" TextWrapping="Wrap" Text="Exception" VerticalAlignment="Top"
+                 Width="404" Foreground="#030700">
             <TextBox.BorderBrush>
-                <SolidColorBrush Color="#FFABADB3" Opacity="0"/>
+                <SolidColorBrush Color="#030700" Opacity="0.2"/>
             </TextBox.BorderBrush>
 
             <TextBox.Background>
