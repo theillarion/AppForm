@@ -150,38 +150,38 @@ namespace Xk7.Services
                 throw new ExecuteException(ex.Message);
             }
         }
-        public async Task<RemoveResult> RemoveDirectoryAsync(string path)
+        public async Task<RemoveFileResult> RemoveDirectoryAsync(string path)
         {
             await ConnectImplAsync();
 
             try
             {
                 if (!await ExistsPathAsync(path))
-                    return RemoveResult.NotExists;
+                    return RemoveFileResult.NotExists;
 
                 await Task.Run(() => _client.DeleteDirectory(path));
 
                 await DisconnecttImplAsync();
-                return RemoveResult.Success;
+                return RemoveFileResult.Success;
             }
             catch (Exception ex)
             {
                 throw new ExecuteException(ex.Message);
             }
         }
-        public async Task<RemoveResult> RemoveFileAsync(string filePath)
+        public async Task<RemoveFileResult> RemoveFileAsync(string filePath)
         {
             await ConnectImplAsync();
 
             try
             {
                 if (!await ExistsPathAsync(filePath))
-                    return RemoveResult.NotExists;
+                    return RemoveFileResult.NotExists;
 
                 await Task.Run(() => _client.DeleteFile(filePath));
 
                 await DisconnecttImplAsync();
-                return RemoveResult.Success;
+                return RemoveFileResult.Success;
             }
             catch (Exception ex)
             {
