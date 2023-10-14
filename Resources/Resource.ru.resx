@@ -132,8 +132,23 @@
   <data name="ButtonReturn" xml:space="preserve">
     <value>Вернуться</value>
   </data>
+  <data name="ErrorIncorrectDateBirthday" xml:space="preserve">
+    <value>Формат даты должен быть `yyyy-MM-dd`.</value>
+  </data>
   <data name="ErrorIncorrectFileConfiguration" xml:space="preserve">
     <value>Некорректный файл конфигурации</value>
+  </data>
+  <data name="ErrorIncorrectFirstName" xml:space="preserve">
+    <value>Имя может содержать только латинские буквы.</value>
+  </data>
+  <data name="ErrorIncorrectLogin" xml:space="preserve">
+    <value>Логин должен содержать только латинские буквы и цифры. Минимальная длина пароля 8 символов.</value>
+  </data>
+  <data name="ErrorIncorrectPassword" xml:space="preserve">
+    <value>Пароль должен содержать только латинские буквы и цифры. Минимальная длина пароля 8 символов.</value>
+  </data>
+  <data name="ErrorIncorrectSecondName" xml:space="preserve">
+    <value>Фамилия может содержать только латинские буквы.</value>
   </data>
   <data name="ErrorNotFoundConfig" xml:space="preserve">
     <value>Не найден файл конфигурации.</value>
@@ -163,7 +178,7 @@
     <value>Вход в аккаунт</value>
   </data>
   <data name="LabelNameProject" xml:space="preserve">
-    <value>Психологическая помощь</value>
+    <value>App form</value>
   </data>
   <data name="LabelRegistration" xml:space="preserve">
     <value>Регистрация аккаунта</value>

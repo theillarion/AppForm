@@ -106,11 +106,56 @@ namespace Xk7.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на The date format must be `yyyyy-MM-dd`..
+        /// </summary>
+        public static string ErrorIncorrectDateBirthday {
+            get {
+                return ResourceManager.GetString("ErrorIncorrectDateBirthday", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Invalid configuration file.
         /// </summary>
         public static string ErrorIncorrectFileConfiguration {
             get {
                 return ResourceManager.GetString("ErrorIncorrectFileConfiguration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на The name can only contain Latin letters..
+        /// </summary>
+        public static string ErrorIncorrectFirstName {
+            get {
+                return ResourceManager.GetString("ErrorIncorrectFirstName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на The login must contain only Latin letters and numbers. The minimum password length is 8 characters..
+        /// </summary>
+        public static string ErrorIncorrectLogin {
+            get {
+                return ResourceManager.GetString("ErrorIncorrectLogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на The password must contain only Latin letters and numbers. The minimum password length is 8 characters..
+        /// </summary>
+        public static string ErrorIncorrectPassword {
+            get {
+                return ResourceManager.GetString("ErrorIncorrectPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на The surname can only contain Latin letters..
+        /// </summary>
+        public static string ErrorIncorrectSecondName {
+            get {
+                return ResourceManager.GetString("ErrorIncorrectSecondName", resourceCulture);
             }
         }
         
@@ -124,7 +169,7 @@ namespace Xk7.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Not all required fields have been filled in. Please try again..
+        ///   Ищет локализованную строку, похожую на Not all required fields have been filled in..
         /// </summary>
         public static string ErrorSomeFieldsBlank {
             get {
@@ -142,7 +187,7 @@ namespace Xk7.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на User with this logic already exists..
+        ///   Ищет локализованную строку, похожую на User with this logic already exists. Try another login..
         /// </summary>
         public static string ErrorUserExists {
             get {
@@ -196,7 +241,7 @@ namespace Xk7.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Psycho-help.
+        ///   Ищет локализованную строку, похожую на App form.
         /// </summary>
         public static string LabelNameProject {
             get {

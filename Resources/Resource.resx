@@ -132,20 +132,35 @@
   <data name="ButtonReturn" xml:space="preserve">
     <value>Return</value>
   </data>
+  <data name="ErrorIncorrectDateBirthday" xml:space="preserve">
+    <value>The date format must be `yyyyy-MM-dd`.</value>
+  </data>
   <data name="ErrorIncorrectFileConfiguration" xml:space="preserve">
     <value>Invalid configuration file</value>
+  </data>
+  <data name="ErrorIncorrectFirstName" xml:space="preserve">
+    <value>The name can only contain Latin letters.</value>
+  </data>
+  <data name="ErrorIncorrectLogin" xml:space="preserve">
+    <value>The login must contain only Latin letters and numbers. The minimum password length is 8 characters.</value>
+  </data>
+  <data name="ErrorIncorrectPassword" xml:space="preserve">
+    <value>The password must contain only Latin letters and numbers. The minimum password length is 8 characters.</value>
+  </data>
+  <data name="ErrorIncorrectSecondName" xml:space="preserve">
+    <value>The surname can only contain Latin letters.</value>
   </data>
   <data name="ErrorNotFoundConfig" xml:space="preserve">
     <value>Configuration file not found.</value>
   </data>
   <data name="ErrorSomeFieldsBlank" xml:space="preserve">
-    <value>Not all required fields have been filled in. Please try again.</value>
+    <value>Not all required fields have been filled in.</value>
   </data>
   <data name="ErrorUserBlocked" xml:space="preserve">
     <value>The user is blocked.</value>
   </data>
   <data name="ErrorUserExists" xml:space="preserve">
-    <value>User with this logic already exists.</value>
+    <value>User with this logic already exists. Try another login.</value>
   </data>
   <data name="ErrorUserNotExists" xml:space="preserve">
     <value>The user with this login does not exist.</value>
@@ -163,7 +178,7 @@
     <value>Account login</value>
   </data>
   <data name="LabelNameProject" xml:space="preserve">
-    <value>Psycho-help</value>
+    <value>App form</value>
   </data>
   <data name="LabelRegistration" xml:space="preserve">
     <value>Account registration</value>
