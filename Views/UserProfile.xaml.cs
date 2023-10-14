@@ -26,9 +26,9 @@ namespace Xk7.Views
     {
         private readonly IDbAsyncService _dbAsyncService;
         private readonly IFileService _fileService;
-        private DbUser _user;
+        private IDbUser _user;
         private const string TitlePage = "EditUser";
-        internal UserProfile(IDbAsyncService dbAsyncService, IFileService fileService, DbUser user)
+        internal UserProfile(IDbAsyncService dbAsyncService, IFileService fileService, IDbUser user)
         {
             InitializeComponent();
             _dbAsyncService = dbAsyncService;
@@ -39,7 +39,10 @@ namespace Xk7.Views
             SecondNameTextBlock.Text = user.SecondName;
             DateBirthTextBlock.Text = user.DateBirthday.ToString();
         }
-
+        internal async Task<UserProfile> CreateAsync(IDbAsyncService dbAsyncService, IFileService fileService, IDbUser user)
+        {
+            return await Task.Run(() => new UserProfile(dbAsyncService, fileService, user));
+        }
         private void ChangeLanguageClick(object sender, RoutedEventArgs e)
         {
             if (App.language.Equals("ru"))
@@ -53,7 +56,6 @@ namespace Xk7.Views
                 UICultureService.SetCulture(new CultureInfo(App.language));
             }
         }
-
         private void ExitClick(object sender, RoutedEventArgs e)
         {
             App.MainFrame.Navigate(new Auth(_dbAsyncService, _fileService));
