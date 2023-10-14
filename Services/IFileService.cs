@@ -9,9 +9,9 @@ namespace Xk7.Services
         Task<LoadFileResult> DownloadFileAsync(string srcFilePath, string destFilePath, bool isOverride = false);
         bool ExistsPath(string path);
         Task<bool> ExistsPathAsync(string path);
-        Task<RemoveResult> RemoveFileAsync(string filePath);
+        Task<RemoveFileResult> RemoveFileAsync(string filePath);
         bool CreateDirectory(string path);
         Task<bool> CreateDirectoryAsync(string path);
-        Task<RemoveResult> RemoveDirectoryAsync(string path);
+        Task<RemoveFileResult> RemoveDirectoryAsync(string path);
     };
 }
