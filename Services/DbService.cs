@@ -89,7 +89,7 @@ namespace Xk7.Services
             }
         }
         // Check without `ExistsUser`
-        public AddUserResult AddUser(User user)
+        public AddUserResult AddUser(IDbUser user)
         {
             if (_connection is not { State: ConnectionState.Open })
                 throw new ConnectionException("Connection refused");
@@ -104,11 +104,11 @@ namespace Xk7.Services
                     $"INSERT INTO `User` VALUES(@IdUserRole, @Login, @Password, @FirstName, @SecondName, @DateBirthday, @IsBlocked)";
                 command.AddParameterWithValue("@IdUserRole", (int)user.IdUserRole);
                 command.AddParameterWithValue("@Login", user.Login);
-                command.AddParameterWithValue("@Password", user.Password);
+                command.AddParameterWithValue("@Password", user.HashPassword);
                 command.AddParameterWithValue("@FirstName", user.FirstName);
                 command.AddParameterWithValue("@SecondName", user.SecondName);
-                command.AddParameterWithValue("@DateBirthday", user.DateBirthday.ToString("yyyy-MM-dd"));
-                command.AddParameterWithValue("@IsBlocked", user.IsBanned);
+                command.AddParameterWithValue("@DateBirthday", user.DateBirthday);
+                command.AddParameterWithValue("@IsBlocked", user.IsBlocked);
 
                 return command.ExecuteNonQuery() == 1 ? AddUserResult.Success : AddUserResult.Unknown;
             }
@@ -202,7 +202,7 @@ namespace Xk7.Services
                 command.AddParameterWithValue("@Password", NewUser.HashPassword);
                 command.AddParameterWithValue("@FirstName", NewUser.FirstName);
                 command.AddParameterWithValue("@SecondName", NewUser.SecondName);
-                command.AddParameterWithValue("@DateBirthday", NewUser.DateBirthday.ToString("yyyy-MM-dd"));
+                command.AddParameterWithValue("@DateBirthday", NewUser.DateBirthday);
                 command.AddParameterWithValue("@IsBlocked", NewUser.IsBlocked);
                 command.AddParameterWithValue("@OldLogin", OldLogin);
                 return command.ExecuteNonQuery() == 1 ? CommonAddResult.Success : CommonAddResult.Unknown;
