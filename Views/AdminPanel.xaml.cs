@@ -30,91 +30,76 @@ using Xk7.Services;
 
 namespace Xk7.Views
 {
-    /// <summary>
-    /// Логика взаимодействия для AdminPanel.xaml
-    /// </summary>
-    /// 
-    
-    public partial class AdminPanel : Page
-    {
-        private readonly IDbAsyncService _dbService;
-        private readonly IFileService _fileService;
-        private const string TitlePage = "AdminPanel";
-        public AdminPanel()
-        {
-            InitializeComponent();
-            var dbService = App.ConfigureDefaultDbService(App.FatalError);
-            var fileService = App.ConfigureDefaultFileService(App.FatalError);
-            if (dbService == null || fileService == null)
-                App.FatalError(null);
-            else
-            {
-                _dbService = dbService;
-                _fileService = fileService;
-            }
-        }
-        public static async Task<AdminPanel> CreateAsync()
-        {
-            var adminPanel = new AdminPanel();
+	/// <summary>
+	/// Логика взаимодействия для AdminPanel.xaml
+	/// </summary>
+	/// 
+	
+	public partial class AdminPanel : Page
+	{
+		private readonly IDbAsyncService _dbService;
+		private readonly IFileService _fileService;
+		private const string TitlePage = "AdminPanel";
+		public AdminPanel()
+		{
+			InitializeComponent();
+			var dbService = App.ConfigureDefaultDbService(App.FatalError);
+			var fileService = App.ConfigureDefaultFileService(App.FatalError);
+			if (dbService == null || fileService == null)
+				App.FatalError(null);
+			else
+			{
+				_dbService = dbService;
+				_fileService = fileService;
+			}
+		}
+		public static async Task<AdminPanel> CreateAsync()
+		{
+			var adminPanel = new AdminPanel(); 
+			var tableUser = await adminPanel._dbService.GetTableAsync("User");
+			var collectionUsers = new ObservableCollection<DbUser>();
 
-            //TODO: DELETE!!! (FOR DEBUG)
-            try
-            {
-                var result = await adminPanel._dbService.AddTestWithImageAsync(adminPanel._fileService, new DbTest(1, "Test", "Bla bla bla", DateTime.UtcNow, "admin", true), "test_picture.jpg");
-                MessageBox.Show(Enum.GetName(typeof(AddTestImageResult), result), "Result", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Exception", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            //END BLOCK
+			if (tableUser != null)
+				foreach (DataRow row in tableUser.Rows)
+				{
+					var rowUser = Factory.FromDataRow<DbUser>(row);
+					if (rowUser != null)
+						collectionUsers.Add(rowUser);
+				}
+			adminPanel.dbTable.ItemsSource = collectionUsers;
 
-            var tableUser = await adminPanel._dbService.GetTableAsync("User");
-            var collectionUsers = new ObservableCollection<DbUser>();
+			return adminPanel;
+		}
 
-            if (tableUser != null)
-                foreach (DataRow row in tableUser.Rows)
-                {
-                    var rowUser = Factory.FromDataRow<DbUser>(row);
-                    if (rowUser != null)
-                        collectionUsers.Add(rowUser);
-                }
-            adminPanel.dbTable.ItemsSource = collectionUsers;
+		private void ChangeLanguageClick(object sender, RoutedEventArgs e)
+		{
+			if (App.language.Equals("ru"))
+			{
+				App.language = "en";
+				UICultureService.SetCulture(new CultureInfo(App.language));
+			}
+			else
+			{
+				App.language = "ru";
+				UICultureService.SetCulture(new CultureInfo(App.language));
+			}
+		}
 
-            return adminPanel;
-        }
+		private void ExitClick(object sender, RoutedEventArgs e)
+		{
+			App.MainFrame.Navigate(new Auth(_dbService, _fileService));
+		}
 
-        private void ChangeLanguageClick(object sender, RoutedEventArgs e)
-        {
-            if (App.language.Equals("ru"))
-            {
-                App.language = "en";
-                UICultureService.SetCulture(new CultureInfo(App.language));
-            }
-            else
-            {
-                App.language = "ru";
-                UICultureService.SetCulture(new CultureInfo(App.language));
-            }
-        }
-
-        private void ExitClick(object sender, RoutedEventArgs e)
-        {
-            App.MainFrame.Navigate(new Auth(_dbService, _fileService));
-        }
-
-        private void AdminPanelEditButton(object sender, RoutedEventArgs e)
-        {
-            var user = dbTable.SelectedItem as DbUser;         
-            if (user is null) 
-                return;
-            else
-            {
-                App.MainFrame.Navigate(new EditUser(_dbService, user));
-            }    
-        }
-
-
-
+		// FOR DEBUG!!!
+		private async void AdminPanelEditButton(object sender, RoutedEventArgs e)
+		{
+			var user = dbTable.SelectedItem as DbUser;         
+			if (user is null) 
+				return;
+			else
+			{
+				App.MainFrame.Navigate(await MainTestView.CreateAsync(_dbService, _fileService));
+			}    
+		}
     }
 }
