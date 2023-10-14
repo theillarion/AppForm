@@ -36,7 +36,7 @@ namespace Xk7.Views
             LoginTextBox.Text = user.Login;
             FirstNameTextBox.Text = user.FirstName;
             SecondNameTextBox.Text = user.SecondName;
-            DateBirthTextBox.Text = user.DateBirthday.ToString();
+            DateBirthTextBox.Text = user.DateBirthdayString;
         }
         private async void ConfirmButton_Click(object sender, RoutedEventArgs e)
         {
@@ -46,7 +46,7 @@ namespace Xk7.Views
             EditedUser.IdUserRole = uint.Parse(UserRoleTextBox.Text);
             EditedUser.FirstName = FirstNameTextBox.Text;
             EditedUser.SecondName = SecondNameTextBox.Text;
-            EditedUser.DateBirthday = DateTime.Parse(DateBirthTextBox.Text);
+            EditedUser.DateBirthdayString = DateBirthTextBox.Text;
 
 
             if (!EditedUser.AllFieldsFilled())
