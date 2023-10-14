@@ -16,17 +16,5 @@ namespace Xk7.Helper.Converts
 
             return Convert.ToHexString(hashBytes);
         }
-        internal static AddImageResult ConvertEnum(LoadFileResult fileResult)
-        {
-            if ((uint)fileResult > (uint)LoadFileResult.Success)
-                return (AddImageResult)(fileResult + 1);
-            return AddImageResult.Success;
-        }
-        internal static AddImageResult ConvertEnum(AddTestResult fileResult)
-        {
-            if ((uint)fileResult < (uint)AddTestResult.Unknown)
-                return (AddImageResult)fileResult;
-            return AddImageResult.Unknown;
-        }
     }
 }
