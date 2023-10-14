@@ -1,19 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Xk7.Model
 {
-    public interface IDbUser
+    public interface IDbUser : IDbBase
     {
-        public uint IdUserRole { get; set; }
-        public string Login { get; set; }
-        public byte[] HashPassword { get; set; }
-        public string FirstName { get; set; }
-        public string SecondName { get; set; }
-        public DateTime DateBirthday { get; set; }
-        public bool IsBlocked { get; set; }
+        public static string DbDateFormat = "yyyy-MM-dd";
+        uint IdUserRole { get; set; }
+        string Login { get; set; }
+        byte[] HashPassword { get; set; }
+        string FirstName { get; set; }
+        string SecondName { get; set; }
+        DateTime? DateBirthday { get; set; }
+        bool IsBlocked { get; set; }
     }
 }
