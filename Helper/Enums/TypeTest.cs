@@ -8,7 +8,7 @@ namespace Xk7.Helper.Enums
 {
     internal enum TypeTest
     {
-        Simple,
-        NoSimple
+        Simple = 1,
+        //NoSimple
     };
 }
