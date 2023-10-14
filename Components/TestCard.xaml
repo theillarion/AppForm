@@ -1,0 +1,51 @@
+﻿<UserControl x:Class="Xk7.Components.TestCard"
+			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+			 xmlns:local="clr-namespace:Xk7.Components"
+			 mc:Ignorable="d" 
+			 d:DesignHeight="450" d:DesignWidth="800">
+	<Border
+		Width="250"
+		Margin="0 0 10 10"
+		Padding="10"
+		BorderBrush="LightGray"
+		BorderThickness="1"
+		CornerRadius="3">
+		<Grid>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="auto" />
+				<RowDefinition Height="*" />
+				<RowDefinition Height="auto" />
+				<RowDefinition Height="auto" />
+			</Grid.RowDefinitions>
+
+            <TextBlock
+				Grid.Row="0"
+				FontSize="18"
+				Text="{Binding Title}">
+            </TextBlock>
+            <Image
+				Grid.Row="1"
+				Margin="0 10 0 0"
+				Source="{Binding Path}"
+				Width="100"
+				Height="100"
+				Stretch="UniformToFill">
+            </Image>
+            <TextBlock
+				Grid.Row="1"
+				Margin="0 10 0 0"
+				Text="{Binding Description}"
+				TextWrapping="Wrap">
+			</TextBlock>
+			<Button
+				Grid.Row="2"
+				Margin="0 10 0 0"
+				FontWeight="Bold"
+				Content="">
+			</Button>
+		</Grid>
+	</Border>
+</UserControl>
