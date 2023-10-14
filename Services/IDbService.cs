@@ -16,7 +16,7 @@ namespace Xk7.Services
         bool ExistsUser(string login);
         bool IsBannedUser(string login);
         string GetHashPassword(string login);
-        AddUserResult AddUser(User user);
+        AddUserResult AddUser(IDbUser user);
         DataRow? GetDataUserByLogin(string login);
         CommonAddResult AddLogAsync(string login, LoggingType loggingType);
         DataTable? GetTable(string nameTable);
