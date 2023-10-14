@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +11,7 @@ using Xk7.Services;
 
 namespace Xk7.ViewModel
 {
-    internal class MainTestViewModel : ViewModelBase
+    internal class MainTestViewModel : INotifyPropertyChanged
     {
         private readonly TestManager _testManager;
         private readonly ObservableCollection<TestViewModel> _tests;
@@ -28,6 +29,11 @@ namespace Xk7.ViewModel
                 viewResult._tests.Add(new TestViewModel(elem.Tittle, elem.Description, elem.LocalPath));
 
             return viewResult;
+        }
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
